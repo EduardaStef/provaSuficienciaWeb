@@ -1,4 +1,4 @@
-# FURB: Prova de Suficiencia - Programação Web I
+# FURB: Prova de Suficiência - Programação Web I
 
 A ideia dessa prova era criar uma interface gráfica simples utilizando o serviço https://jsonplaceholder.typicode.com/photos.
 O projeto permite consultar os dados, incluir novos dados localmente, editar os dados locais e excluir dados locais.</br>
