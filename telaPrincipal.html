@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prova de Suficiência</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+    <body class="bg-light">
+        <header class="text-white p-3">
+            <div class="titulo">
+                <div style="justify-content: start; align-self: center;">
+                    <img src="../provWEB/imagens/furb-logo.png" alt="logo da furb" width="20%" height="70%">
+                </div>
+                <div style="justify-content: end;">
+                    <h1>Prova de Suficiência</h1>
+                </div>
+            </div>
+        </header>
+
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(26, 61, 107);">
+            <div class="container-fluid">
+                <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" onclick="alteraTab('listar')">Listar</a></li>
+                <li class="nav-item"><a class="nav-link" onclick="alteraTab('inserir')">Inserir</a></li>
+                <li class="nav-item"><a class="nav-link" onclick="alteraTab('alterar')">Alterar</a></li>
+                <li class="nav-item"><a class="nav-link" onclick="alteraTab('deletar')">Excluir</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="container my-4">
+        <section id="listar" class="card p-3">
+            <h3>Listar Imagens</h3>
+            <table class="table table-striped table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Imagem</th>
+                </tr>
+            </thead>
+            <tbody id="listagemFotos"></tbody>
+            </table>
+
+            <div class="justify-content-between">
+                <button id="pagina-anterior" class="btn btn-outline-primary">Anterior</button>
+                <button id="pagina-proxima" class="btn btn-outline-primary">Próximo</button>
+            </div>
+
+        </section>
+
+        <section id="inserir" class="card p-3 d-none">
+            <h3>Inserir Imagem</h3>
+            <form id="formulario-inserir">
+            <div class="mb-3">
+                <label>Título</label>
+                <input type="text" id="titulo" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>URL da Imagem</label>
+                <input type="url" id="url" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">Adicionar</button>
+            </form>
+        </section>
+
+        <section id="alterar" class="card p-3 d-none">
+            <h3>Alterar Imagem</h3>
+            <form id="formulario-alterar">
+            <div class="mb-3">
+                <label>Selecione o item a ser alterado</label>
+                <div class="input-group mb-3">
+                <select class="custom-select" id="id-alterado">
+                    <option selected value="null">Sem registros para escolher</option>
+                </select>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label>Novo Título</label>
+                <input type="text" id="titulo-alterado" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-warning">Alterar</button>
+            </form>
+        </section>
+
+        <section id="deletar" class="card p-3 d-none">
+            <h3>Excluir Imagem</h3>
+            <form id="formulario-deletar">
+            <div class="mb-3">
+                <label>Selecione o item a ser excluido:</label>
+                <div class="input-group mb-3">
+                <select class="custom-select" id="id-excluido">
+                    <option selected value="null">Sem registros para escolher</option>
+                </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-danger">Excluir</button>
+            </form>
+        </section>
+
+        </main>
+        <script src="telaPrincipal.js"></script>
+    </body>
+</html>
