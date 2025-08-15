@@ -69,7 +69,7 @@ function calculatePagination(page) {
 
 function populateDropdown(dropdownId) {
   const dropdown = document.getElementById(dropdownId);
-  dropdown.innerHTML = localPhotos
+  dropdown.innerHTML = allPhotos
     .map(photo => `<option value="${photo.id}">ID: ${photo.id} | ${photo.title}</option>`);
 }
 
@@ -100,20 +100,46 @@ async function addImage(event) {
   }
 }
 
-function updateImage() {
+async function updateImage() {
+
   const id = Number(document.getElementById('id-alterado').value);
   const title = document.getElementById('titulo-alterado').value;
 
-  const image = localPhotos.find(photo => photo.id === id);
-  if (!image) return alert('Somente imagens do armazenamento interno podem ser alteradas.');
+  const imageIndex = allPhotos.findIndex(photo => photo.id === id);
+  const localImageIndex = localPhotos.findIndex(photo => photo.id === id);
+  if ((imageIndex === -1) && (localImageIndex === -1)) {
+    return alert('Imagem não encontrada');
+  } else if (localImageIndex !== -1) {
+    localPhotos[localImageIndex].title = title;
+    localStorage.setItem('imagens', JSON.stringify(localPhotos));
+  } else if(imageIndex !== -1) {
+    try {
+    const response = await fetch(`${API_URL}/photos/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        id,
+        title,
+        url: allPhotos[imageIndex].url,
+        thumbnailUrl: allPhotos[imageIndex].thumbnailUrl
+      }),
+      headers: { 'Content-Type': 'application/json' }
+    });
 
-  image.title = title;
-  localStorage.setItem('imagens', JSON.stringify(localPhotos));
+    if (!response.ok) throw new Error('Erro ao alterar imagem');
 
-  alert('Imagem alterada com sucesso');
+    console.log(response);
+
+    alert('Imagem alterada com sucesso');
+  } catch (error) {
+    alert(error.message);
+  }
 }
+  }
 
-function deleteImage() {
+  
+
+async function deleteImage() {
+
   const id = Number(document.getElementById('id-excluido').value);
   localPhotos = localPhotos.filter(photo => photo.id !== id);
 
